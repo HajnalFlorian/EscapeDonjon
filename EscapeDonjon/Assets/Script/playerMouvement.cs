@@ -6,7 +6,7 @@ public class playerMouvement : MonoBehaviour
 {
     public float speed;
     private Vector2 direction;
-    private Animator animator;
+    public Animator animator;
 
     private void Start()
     {

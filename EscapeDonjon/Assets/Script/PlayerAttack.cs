@@ -2,38 +2,68 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : playerMouvement
 {
-    public Animator animator;
+    public playerMouvement infoPlayer;
 
-    public Transform attackPoint;
+    public Transform attackPointUp;
+    public Transform attackPointoiwn;
+    public Transform attackPointLeft;
+    public Transform attackPointRight;
+
+
     public GameObject AttackpointDown;
+    public GameObject AttackpointUp;
+    public GameObject AttackpointLeft;
+    public GameObject AttackpointRight;
 
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (infoPlayer.animator.GetFloat("yDirection") > 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            AttackpointDown.SetActive(false);
+            StartCoroutine(SpriteUpPop());
         }
-        if (Input.GetKey(KeyCode.Q))
+        if (infoPlayer.animator.GetFloat("xDirection") < 0 && Input.GetKeyDown(KeyCode.Space))
         {
-
+            StartCoroutine(SpriteLeftPop());
         }
-        if (Input.GetKey(KeyCode.S) && Input.GetKeyDown(KeyCode.Space))
+        if (infoPlayer.animator.GetFloat("yDirection") < 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            AttackpointDown.SetActive(true);
+            StartCoroutine(SpriteDownPop());
         }
-        else
+        if (infoPlayer.animator.GetFloat("xDirection") > 0 && Input.GetKeyDown(KeyCode.Space))
         {
-
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
+            StartCoroutine(SpriteRightPop());
 
         }
 
+    }
+
+    IEnumerator SpriteDownPop()
+    {
+        AttackpointDown.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        AttackpointDown.SetActive(false);
+    }
+    IEnumerator SpriteUpPop()
+    {
+        AttackpointUp.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        AttackpointUp.SetActive(false);
+    }
+    IEnumerator SpriteLeftPop()
+    {
+        AttackpointLeft.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        AttackpointLeft.SetActive(false);
+    }
+    IEnumerator SpriteRightPop()
+    {
+        AttackpointRight.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        AttackpointRight.SetActive(false);
     }
 }
