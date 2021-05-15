@@ -7,6 +7,8 @@ public class playerMouvement : MonoBehaviour
     public float speed;
     private Vector2 direction;
     public Animator animator;
+    public float attackRate = 2f;
+    public float NextAttack = 0f;
 
     private void Start()
     {
@@ -33,13 +35,17 @@ public class playerMouvement : MonoBehaviour
         {
             animator.SetLayerWeight(1, 0);
         }
-        
-        // attack
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            animator.SetTrigger("Attack");
 
+        // attack
+        if (Time.time >= NextAttack)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                animator.SetTrigger("Attack");
+                NextAttack = Time.time + 1f / attackRate;
+            }
         }
+
 
     }
 
